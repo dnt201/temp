@@ -21,9 +21,11 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
-      "@pages/*": [
-        "pages/*"
-      ]
+      "@api/*": ["api/*"],
+      "@app/*": ["app/*"],
+      "@pages/*": ["pages/*"],
+      "@redux/*": ["redux/*"],
+      "@router/*": ["router/*"],
     }
   },
   "include": [
