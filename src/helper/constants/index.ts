@@ -1,4 +1,4 @@
-import { PagingType, QueryType } from './types';
+import { PagingType, QueryType } from '../types';
 
 export const DATE_FORMAT = 'MM/DD/YYYY';
 export const LONG_DATE_FORMAT = 'MM/DD/YYYY hh:mm A';

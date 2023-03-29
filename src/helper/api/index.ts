@@ -1,11 +1,9 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import  { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axiosClient from './axiosClient';
 
 /**
  * The Base API
  */
-const api = axios.create();
-api.defaults.baseURL = process.env.REACT_APP_USER_URL || '/api/'; // Init default base URL
-
 export interface ErrorObjectType {
 	message?: string;
 	error?: boolean;
@@ -21,33 +19,13 @@ type ResponseType<T> = ErrorObjectType & {
 	totalRecords?: number;
 };
 
-export class API {
-	/**
-	 * Setup an `accessToken` in Api Instance
-	 * @param token string
-	 * @returns VoidFunction
-	 */
-	static setToken = (token?: string) => {
-		if (!token) {
-			return;
-		}
-		api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-	};
-	/**
-	 * Remove an `accessToken` in Api Instance
-	 * @returns VoidFunction
-	 */
-	static removeToken = () => {
-		api.defaults.headers.common['Authorization'] = false;
-	};
-}
 
 export const get = async <T = any, D = any>(
 	url: string,
-	config?: AxiosRequestConfig<D>
+	config?: InternalAxiosRequestConfig<D>
 ): Promise<ResponseType<T>> => {
 	try {
-		const response = await api.get<T & ErrorObjectType>(url, config);
+		const response = await axiosClient.get<T & ErrorObjectType>(url, config);
 		if (response?.data && !response.data?.error) {
 			const { data, ...rest } = response;
 			return { ...data, instance: rest };
@@ -61,10 +39,10 @@ export const get = async <T = any, D = any>(
 export const post = async <T = any, D = any>(
 	url: string,
 	data?: D,
-	config?: AxiosRequestConfig<D>
+	config?: InternalAxiosRequestConfig<D>
 ): Promise<ResponseType<T>> => {
 	try {
-		const response = await api.post<T & ErrorObjectType>(url, data, config);
+		const response = await axiosClient.post<T & ErrorObjectType>(url, data, config);
 		if (response?.data && !response.data?.error) {
 			const { data, ...rest } = response;
 			return { ...data, instance: rest };
@@ -78,10 +56,10 @@ export const post = async <T = any, D = any>(
 export const put = async <T = any, D = any>(
 	url: string,
 	data?: D,
-	config?: AxiosRequestConfig<D>
+	config?: InternalAxiosRequestConfig<D>
 ): Promise<ResponseType<T>> => {
 	try {
-		const response = await api.put<T & ErrorObjectType>(url, data, config);
+		const response = await axiosClient.put<T & ErrorObjectType>(url, data, config);
 		if (response?.data && !response.data?.error) {
 			const { data, ...rest } = response;
 			return { ...data, instance: rest };
@@ -95,10 +73,10 @@ export const put = async <T = any, D = any>(
 export const patch = async <T = any, D = any>(
 	url: string,
 	data?: D,
-	config?: AxiosRequestConfig<D>
+	config?: InternalAxiosRequestConfig<D>
 ): Promise<ResponseType<T>> => {
 	try {
-		const response = await api.patch<T & ErrorObjectType>(
+		const response = await axiosClient.patch<T & ErrorObjectType>(
 			url,
 			data,
 			config
@@ -115,10 +93,10 @@ export const patch = async <T = any, D = any>(
 
 export const remove = async <T = any, D = any>(
 	url: string,
-	config?: AxiosRequestConfig<D>
+	config?: InternalAxiosRequestConfig<D>
 ): Promise<ResponseType<T>> => {
 	try {
-		const response = await api.delete<T & ErrorObjectType>(url, config);
+		const response = await axiosClient.delete<T & ErrorObjectType>(url, config);
 		if (response?.data && !response.data?.error) {
 			const { data, ...rest } = response;
 			return { ...data, instance: rest };

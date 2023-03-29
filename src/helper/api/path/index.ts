@@ -7,3 +7,10 @@ export const APIPaths = {
 		deleteDefect: 'defect/:defect_id',
 	},
 } as const;
+
+
+export const TEST_APIPaths = {
+	user:{
+		login:'/api/login',
+	}
+}
